@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>git.utf8</title>
+
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Reproducible Research (in R)</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="open-science.html">Open Science</a>
+</li>
+<li>
+  <a href="data_and_file_management.html">Data and File Management</a>
+</li>
+<li>
+  <a href="rmarkdown.html">R Markdown</a>
+</li>
+<li>
+  <a href="git.html">Version Control</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br /> <br /></p>
+<p align="center">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQpzxV_-Jmz4tIhPA3BsO7p_mxDVMqkODyJYPos1cghlkUX8nY_Z7YTV7NFzcKI1gKt8bEQGySRnDaA/embed?start=false&amp;loop=false&amp;delayms=3000" frameborder="0" width="672" height="398" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+</iframe>
+</p>
+<p><br /> <br /></p>
+<div class="summarybox">
+<div class="summarybox-title">
+<p><font size="5"> <i class="fas fa-question-circle"></i> <strong>Overview</strong> </font></p>
+</div>
+<ol style="list-style-type: decimal">
+<li>You will understand the benefits of an automated version control system.</li>
+<li>You will setup your <strong>first git repository</strong>.</li>
+<li>You will gain an understandig of how to use git to track <em>your own</em> changes to your project.</li>
+</ol>
+</div>
+<p><br /> <br /></p>
+<div id="version-control" class="section level1">
+<h1>Version Control</h1>
+<hr />
+<p>Version control is a system that allows you to keep track of changes done to your files. Here, we will focus on how to use git/GitHub to track <em>your own</em> changes to your project, but distributed version control systems like gitHub can also be used to collaborate on projects. Check out this <a href="https://swcarpentry.github.io/git-novice/08-collab/index.html">resource</a> if you’d like to learn more about how to use git/GitHub for collaboration.</p>
+<p><br /><br /></p>
+</div>
+<div id="setup-git" class="section level1">
+<h1>Setup Git</h1>
+<hr />
+<div id="installation" class="section level2">
+<h2>Installation</h2>
+<p>First, let’s figure out if you already have git installed. Go to the shell and enter <code>which git</code> to request the path to your Git executable:</p>
+<pre class="markdown"><code>which git
+## /usr/bin/git</code></pre>
+<p>If this is successfull: great! Move on to the next section. If not, then you should install git.</p>
+<div id="mac" class="section level3">
+<h3>Mac</h3>
+<p>If you have homebrew installed, you can type <code>brew install git</code> in the command line. Should you not have homebrew installed, you can also install git from here: <a href="http://git-scm.com/downloads" class="uri">http://git-scm.com/downloads</a></p>
+</div>
+<div id="windows" class="section level3">
+<h3>Windows</h3>
+<p>For windows users, I’d recommend you install <a href="https://gitforwindows.org">Git for Windows</a>. Use the default settings except for when asked about ‘When asked about ’Adjusting your PATH environment’: Here, select ‘, make sure to select ’Git from the command line and also from 3rd-party software’.</p>
+</div>
+<div id="linux" class="section level3">
+<h3>Linux</h3>
+<p>On Linux, you can install git by typing <code>sudo apt-get install git</code>.</p>
+<p>Done? Perfect, let’s move on.</p>
+<p><br /><br /></p>
+</div>
+</div>
+<div id="introduce-yourself-to-git" class="section level2">
+<h2>Introduce yourself to git</h2>
+<p>We now need to tell git who you are. In the shell type: <code>git config --list --show-origin</code>. Git will tell you know what it already knows about you. If the <code>user.name</code> and <code>user.email</code> already show your git username and the email address you used to setup your account, you are done and can move one. If not, in the shell, enter the following. Substitue <code>YourUsername</code> and <code>you@emailaddress.com</code> with the information used for setting up your git account.</p>
+<pre class="markdown"><code>git config --global user.name &#39;YourUsername&#39;
+git config --global user.email &#39;you@emailaddress.com&#39;</code></pre>
+<p>Use <code>git config --list --show-origin</code> again to check this worked out.</p>
+<p><br /></p>
+</div>
+</div>
+<div id="creating-a-git-repository-on-github" class="section level1">
+<h1>Creating a git repository on GitHub</h1>
+<hr />
+<p>One easy way to create a git repository is to manually do so on GitHub. That’s how we will create our first repository. Go to <a href="https://github.com" class="uri">https://github.com</a> and log in.</p>
+<p>At the top left, click on ‘New’ to create a new repository.</p>
+<p><br /></p>
+<p><img src="img/git_create-repo.png" style="width:20.0%" /></p>
+<p><br /></p>
+<p>Now, choose a name and a short description for your new repository.</p>
+<p><br /></p>
+<p><img src="img/git_repo-name.png" style="width:40.0%" /></p>
+<p><br /></p>
+<p>You can choose whether you want your repository to be private or public. I personally tend to keep my repositories private until I get ready to publish my analyses.</p>
+<p><br /></p>
+<p><img src="img/git_repo-private.png" style="width:40.0%" /></p>
+<p><br /></p>
+<p>Lastly, we’ll click on ‘add README’ so we don’t have to create this later. README’s are a great way to describe what your repository is meant to do - you can add a lot of detail to this (check out a few repos on GitHub to see what people do), if you like, but at least give some basic indications on how things work.</p>
+<p><br /></p>
+<p><img src="img/git_repo-add-readme.png" style="width:40.0%" /></p>
+<p><br /></p>
+<p>Click on ‘Create Repository’ and you are done!</p>
+<p><br /></p>
+<p><img src="img/git_repo-setup.png" style="width:40.0%" /></p>
+<p><br /><br /></p>
+</div>
+<div id="setting-up-git-in-r-studio" class="section level1">
+<h1>Setting up git in R Studio</h1>
+<hr />
+<p>R Studio has a very useful feature which allows you to interact with your git repository from within R Studio, rather than having to revert to the shell or an external interface. Let’s setup that feature.</p>
+<p><br /></p>
+<div id="install-required-packages" class="section level2">
+<h2>Install required packages</h2>
+<p>Install <code>usethis</code>.</p>
+<pre class="markdown"><code>install.packages(&#39;usethis&#39;)</code></pre>
+<p><br /></p>
+</div>
+<div id="create-a-personal-access-token" class="section level2">
+<h2>Create a personal access token</h2>
+<p>To make your life easier and prevent having to enter your password and user name every time you commit to git, we will create a personal access token.</p>
+<p><br /></p>
+</div>
+<div id="clone-the-repository" class="section level2">
+<h2>Clone the repository</h2>
+<p>Until now, you repository only exists online on GitHub. We need to get it from there onto your local machine. This process is called ‘cloning’. To ‘clone’ means to make a local copy of a remote GitHub repository. This only needs to be done once.</p>
+<p><br /></p>
+<div id="copy-the-github-repositorys-url" class="section level3">
+<h3>Copy the GitHub repository’s URL</h3>
+<p>Got to the repository we just created on GitHub. Copy the URL. This should be <code>https://github.com/YourUsername/RepositoryName</code> where <code>YourUsername</code> is your GitHub username and <code>RepositoryRame</code> is the name you chose for your repository.</p>
+<p><br /></p>
+<p><img src="img/git_repo-url.png" style="width:40.0%" /></p>
+<p><br /></p>
+</div>
+<div id="create-a-new-project" class="section level3">
+<h3>Create a new project</h3>
+<p>Click on <code>File &gt; New Project &gt; Version Control &gt; Git</code>. A window will popup that allows you to specify where on GitHub R Studio should look for the repoistory.</p>
+<p>In the ‘Repository URL’ field paste the URL from your GitHub repository. Make sure that the Project directory name is the same as the GitHub repository (e.g above ‘myfirstrepository’). Make sure to choose the directory for you repository intentionally (and no, ‘Desktop’ and ‘Downloads’ are not acceptable options).</p>
+<p><br /></p>
+<p><img src="img/git_clone.png" style="width:40.0%" /></p>
+<p><br /></p>
+<p>Clicking on ‘Create Project’ will create a new directory on your computer which will include:</p>
+<ul>
+<li>a directory linked to a remote GitHub repository</li>
+<li>an RStudio Project file (<code>.Rproj</code>)</li>
+<li>a <code>README.md</code> file with information about the the project</li>
+<li>a <code>.gitignore</code> file listing all files not to be tracked (more on this one later)</li>
+</ul>
+<p><br /><br /></p>
+</div>
+</div>
+</div>
+<div id="use-git-in-r-studio" class="section level1">
+<h1>Use git in R Studio</h1>
+<hr />
+<p>When you clone a repository from GitHub, all files included are downloaded onto your computer. Since the repository we created on GitHub only included the README.md file, that’s all that was clone. Do practice the git workflow, let’s populate the repository.</p>
+<p><br /></p>
+<div id="create-a-folder-structure" class="section level2">
+<h2>Create a folder structure</h2>
+<p>Let’s start with a good file structure right from the beginning. Drawing from the first session on this course, go ahead and create a folder structure for you project. I usually at least create folders for <code>data</code>, <code>scripts</code> and <code>results</code>. You can do this directly in R Studio by clicking on ‘Files - New Folder’.</p>
+<p><br /></p>
+<p><img src="img/flow_folder.png" style="width:40.0%" /></p>
+<p><br /></p>
+</div>
+<div id="create-files" class="section level2">
+<h2>Create files</h2>
+<p>For the fun of it, let’s create the first script in our repository. I created an R Markdown document (‘File - New File - R Markdown…’) and saved it into the ‘scripts’ folder in this repository I created earlier. Note how you can navigate through the folders in your repository in the ‘File’ tab in R Studio.</p>
+<p>I.e. here I have navigates into said ‘scripts’ folder:</p>
+<p><br /></p>
+<p><img src="img/commit_scripts.png" style="width:40.0%" /></p>
+<p><br /></p>
+</div>
+<div id="edit-your-scripts" class="section level2">
+<h2>Edit your scripts</h2>
+<p>Let’s make an edit to an already existing file. Open the README.md and add a line of text to it. Then save it.</p>
+<p><br /></p>
+<p><img src="img/flow_file.png" style="width:40.0%" /></p>
+<p><br /></p>
+</div>
+<div id="push-our-changes" class="section level2">
+<h2>Push our changes</h2>
+<p>Now that we have done some changes to our local repository, we want to ‘push’ them to the remote repository. Basically, we are telling the remote repository ‘Hey, I here are the changes I have done, please integrate them into your version of the repository!’.</p>
+<p>This workflow consists of three stages:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Staging:</strong> Select the files to be pushed. To do so, click on ‘Git’ at the top right.</li>
+</ol>
+<p><br /></p>
+<p><img src="img/commit_stage.png" style="width:40.0%" /></p>
+<p><br /></p>
+<p>R Studio will show you all files that have been changed since your last commit. Select the files you’d like to commit to the remote repository by clicking on the boxes under ‘Staged’. R Studio is helping you here, by displaying little blue ‘M’s to indicate a file has been’<em>M</em>odified’; yellow ‘?’ indicate untracked file; green ‘A’s mean’<em>A</em>dded’.</p>
+<p><br /></p>
+<p><img src="img/commit_commit.png" style="width:40.0%" /></p>
+<p><br /></p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Committing:</strong> Committing consists on reviewing, commenting and accepting the changes before pulling the new version of the file into the remote repository.</li>
+</ol>
+<p>Click on ‘Commit’. A new window will appear where added code is shown in green whereas the deleted code is in red. Make sure to add a comment describing what changes you have made to your commit. This is particularly helpful should you ever want to revert to earlier versions of you repository, for example when debugging.</p>
+<p>Once ready, click on ‘Commit’.</p>
+<p><br /></p>
+<p><img src="img/commit_check.png" style="width:50.0%" /></p>
+<p><br /></p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Pushing:</strong> Pushing takes your ‘commit’ and transfers those changes to the remote repository.</li>
+</ol>
+<p><br /></p>
+<p><img src="img/commit_push.png" style="width:50.0%" /></p>
+<p><br /></p>
+<p>Congratulations, you have just made your first commit!</p>
+<p><br /></p>
+<div class="taskbox">
+<div class="taskbox-title">
+<p><font size="5"> <i class="fas fa-exclamation-circle"></i> <strong>Summary</strong> </font></p>
+</div>
+<ol style="list-style-type: decimal">
+<li>git/GitHub is a powerful distributed version control system that allows you to track the history of changes to your work. Version control is like an unlimited ‘undo’.</li>
+<li>R Studio allows you to directly interact with git. How convenient!</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="further-resources" class="section level1">
+<h1>Further Resources</h1>
+<hr />
+<p>Version control also allows many people to work in parallel. To start <strong>collaborating</strong> on projects using git/GitHub, checkout this <a href="https://swcarpentry.github.io/git-novice/08-collab/index.html">resource</a>.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5,h6",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

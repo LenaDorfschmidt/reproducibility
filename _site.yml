@@ -1,0 +1,16 @@
+name: "reproducibility-training"
+output_dir: "."
+navbar:
+  title: "Reproducible Research (in R)"
+  left:
+    - text: "Open Science"
+      href: open-science.html
+    - text: "Data and File Management"
+      href: data_and_file_management.html
+    - text: "R Markdown"
+      href: rmarkdown.html
+    - text: "Version Control"
+      href: git.html
+output:
+  html_document:
+    css: style.css

@@ -1,0 +1,361 @@
+---
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+    toc_depth: 6
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rmarkdown::find_pandoc(version = '2.9.1')
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+```
+
+<br /><br />
+
+<p align="center">
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRro3c-L3JQGUACtVv6LOYbAmX6DlgsPTKAEW0khszi7ApnLH7W8nQV9EbVKs5ypplvadxSLOh9p2ua/embed?start=false&loop=false&delayms=3000" frameborder="0" width="672" height="398" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+</p>
+
+<br /><br />
+
+:::: {.summarybox data-latex=""}
+:::: {.summarybox-title }
+<font size="5"> 
+<i class="fas fa-question-circle"></i> **Overview**
+</font>
+::::
+
+1. You will learned how to create **basic R Markdown Documents** to document and share your work.
+2. You will understand how to integrate **codeblocks, text, images and tables** into your R Markdown documents. 
+
+::::
+
+<br> <br> 
+
+
+# The very basics
+***
+
+R Markdown is a great tool to document and share your work! R Markdown documents allow you to combine text, and code, images. 
+
+
+
+## Setup document
+Let's create your first R Markdown documents. 
+
+1. Open RStudio
+2. Create a new R Markdown file. To do so, click on *File -> New File -> R Markdown*
+
+![Create R Markdown File](img/create-file.png){width=50%}
+
+This should prompt a dialog that allows you to choose whether you want your output to be in html, pdf or word format. For now, we will go with html, but you can always change this later. 
+
+
+![Output format](img/file-settings.png){width=50%}
+
+This will provide you with a template for an R Markdown document. In this file, you will be able to write code and text, and even import images in R Studio. Sounds pretty awesome, doesn't it? 
+Let't chickly safe the file so that we don't loose anything. Click on *File - Save* and give it a filename. 
+
+## Knit
+***
+
+Now to really make things look pretty (aka compile the html document) we need to *knit* the file. In order to do so, simply click on *knit* on the top left. 
+
+![Knit](img/knit.png){width=50%}
+
+Let's get starting filling this document with some content, but first of all, we should get rid of all the template content provided. Make sure to keep the header, and the piece of code that set's up the structure of the document, but delete everything below. You should just be left with this bit of the code:
+
+````markdown
+---
+title: "Intro to R Markdown"
+output: html_document:
+---
+
+`r ''````{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+`r ''````
+````
+
+# Basic R Markdown text production
+***
+Using R Markdown documents to write reports will likely mean you will want to include some text. 
+
+### Headings
+***
+
+You can structure your reports by including headings and subsections. Headings are added by adding a `#` before your heading. Adding more `#` makes your heading a sub(or sub, or sub-sub-) heading. 
+
+```
+## Heading 2
+### Heading 3
+#### Heading 4
+```
+Which should look like this:
+
+## Heading 2{.unlisted .unnumbered}
+### Heading 3{.unlisted .unnumbered}
+#### Heading 4{.unlisted .unnumbered}
+
+Give this a try. Create a couple of headings in your report and type some text below. 
+
+## Paragraphs
+***
+
+You create paragraphs by leaving an empty line between sentences. That is to say simply hitting enter won't do the job, you actually need to leave an empty line. 
+
+```
+This is your first sentence. 
+This will NOT be a new paragraph. 
+
+This however will be one!
+```
+
+Which looks like so:
+
+This is your first sentence. 
+This will NOT be a new paragraph. 
+
+This however will be one!
+
+Give this a try with the text you have added before. Create some paragraphs and subsections. 
+
+## Lists
+***
+You can include lists - both unstructured and structured: 
+
+```
+* It creates trust in research results 
+* It is the responsible thing to do with public research funding
+* It is efficient
+  + reduces the costs of duplication
+  + allows more research from the same data
+* It allows knowledge transfer through fast, international, collaborative efforts
+* ....
+```
+
+Thoughts on why open and reproducible research is the future:
+
+* It creates trust in research results 
+* It is the responsible thing to do with public research funding
+* It is efficient
+  + it saves time
+  + reduces the costs of duplication
+  + allows more research from the same data
+* It allows knowledge transfer through fast, international, collaborative efforts
+* ....
+
+
+```
+1. Research results are strengthened if they are reproduced and confirmed by several independent researchers.
+2. Researchers can build on one anothers results.
+3. Well documented analyses allow to write papers more easily.
+4. Well documented analyses and open data allow for continuity of research.  
+```
+
+1. Research results are strengthened if they are reproduced and confirmed by several independent researchers.
+2. Researchers can build on one anothers results.
+3. Well documented analyses allow to write papers more easily.
+4. Well documented analyses and open data allow for continuity of research.  
+
+
+## Text formatting
+***
+You can make text *italic* (`*italic*`) or **bold** (`**bold**`), and include inline `code` (`` `code` ``). 
+
+You can also include links `[text](link)`, i.e. `[Cambridge Neuroscience](https://www.neuroscience.cam.ac.uk)` get's you to [Cambridge Neuroscience](https://www.neuroscience.cam.ac.uk).  
+
+Lastly, you can of course include quotes:
+
+> Open research aims to transform research by making it more reproducible, transparent, reusable, collaborative, accountable, and accessible to society. (The Turing Way Community, 2019)
+
+
+## Code Blocks
+***
+
+The great thing about R Markdown is that you can add code directly into your report. This will allow you to add plots - and even show the code that produced it. 
+
+You can add codeblocks either by clicking on `Code > Insert Chunk`, or by adding the following directly:
+
+````markdown
+`r ''````{r }
+
+`r ''````
+````
+
+For this demonstration, we are using data from *1,500 scientists lift the lid on reproducibility
+*, (Baker, 2016). Check out the article [here](https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970). The data is available through [figshare](https://figshare.com/articles/Nature_Reproducibility_survey/3394951/1). 
+
+
+Go ahead and create a new code chunk Now in that code chunk, type the following to load in the data:
+
+```{r }
+# read in data
+questionnaire = read.csv('data/baker_2016_edited.txt', sep="\t")
+```
+
+As a first step, we probably want to get an idea of what the data looks like. The dataframe is pretty big, so I suggest you select a few columns to display as such:
+
+```{r eval=F}
+head(questionnaire[,c(1,11,28,29)])
+```
+
+If you now knit the file, you should see the head of the dataframe displayed:
+
+```{r echo=F}
+head(questionnaire[,c(1,11,28,29)])
+```
+
+
+However, we also see the code you used to produce the table. If you just want to show your readers an overview of the dataframe, you won't need to show the code. We can hide it, by adding the option  `echo=F` to your code chunk like this:
+
+````markdown
+`r ''````{r echo = F}
+
+`r ''````
+````
+
+## Tables
+***
+While the code above works well to demonstrate some options in R Markdown, the table that is output does not actually look too pretty. Let's change that. The `knitr::kable()` function allows you to easily create pretty tables. Try out changing the above `head(questionnaire[,c(1,11,28,29)])` to:
+
+```{r }
+knitr::kable(
+  head(questionnaire[,c(1,11,28,29)]), # This is the table we will plot
+  booktabs = TRUE, # We determine the formatting style as 'booktabs'
+  caption = 'A table that now looks much prettier.') # Here we are adding a caption 
+```
+
+
+## Figure Options
+***
+Perfect. Let's plot some data. 
+Create a new code chunk and paste this code into it. Make sure you have the `ggplot2` library installed. If you haven't, install it first by typing `install.packages('ggplot2')` into the console. 
+
+```{r eval = F}
+library(ggplot2)
+ggplot(questionnaire, aes(x=significance_crisis, fill = significance_crisis))+
+  geom_bar(aes(y = (..count..)/sum(..count..)))+
+  ylab('Percentage')+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.title = element_blank(), 
+        axis.title.x = element_blank())
+```
+
+This should create a plot like this:
+
+```{r echo = F, fig.align = "center"}
+library(ggplot2)
+ggplot(questionnaire, aes(x=significance_crisis, fill = significance_crisis))+
+  geom_bar(aes(y = (..count..)/sum(..count..)))+
+  ylab('Percentage')+
+  coord_flip()+
+  theme_bw()+
+  theme(legend.title = element_blank(), 
+        axis.title.y = element_blank())
+```
+
+Don't want people to see your code? Remember to add `echo = F`. Find the output too big? You can decide on the exact dimensions (in inches) by adding `fig.width = 3, fig.height = 2`. Alternatively, you could scale it to a percentage of the original dimensions using: `out.width = '50%'`. Lastly, decide how the figure should aligned using `fig.align = 'center'`. Go ahead and give some of these options a try. 
+
+
+# External Image
+
+Sometimes you may want to include an external image. I have added an image you could load in here to the `img` folder. 
+
+You can  include the image by adding an image title and the path to your image as such: `![alt text or image title](path/to/image)`. Note that you can control the size of the image included by adding a scaling factor, i.e. `![Reproducibility Table](img/reproducible-table.png){width=50%}`.
+
+
+![Reproducibility Table](img/reproducible-table.png){width=50%}
+
+# YAML Header
+Now that we actually have created some content, let's look at some styling options for our document.
+The YAML header is the bit of code in the very beginning of your document:
+
+````markdown
+---
+title: "MyFirstMarkdownFile"
+output: html_document
+---
+````
+
+Basically, YAML is like configuration code for your document.
+Here, we can determine a whole range of options. You might be interested to add a table of contents to your file:
+
+````markdown
+---
+title: "MyFirstMarkdownFile"
+output:
+  html_document:
+    toc: true
+---
+````
+
+You could decide to number your sections: 
+
+````markdown
+---
+title: "MyFirstMarkdownFile"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+---
+````
+
+You could predetermine the size of the figures in your report so as to not have to set them again in each code chunk:
+
+````markdown
+---
+title: "MyFirstMarkdownFile"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+---
+````
+
+And you can choose from a number of themes as well as code syntax highlighting options. 
+- `theme` determines the overall style. There are 12 themes you can use without installing any additional packages: `cerulean`, `cosmo`, `flatly`, `journal`, `lumen`, `paper`, `readable`, `sandstone`, `simplex`, `spacelab`, `united`, and `yeti`. 
+- `highlight` allows you to determine the syntax highlighting for the code you include, making it easier to read. Try out a few of `default`, `tango`, `pygments`, `kate`, `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, and `textmate`.
+
+For even more themes you could use, check out this [theme guide](https://www.datadreaming.org/post/r-markdown-theme-gallery/). 
+
+````markdown
+---
+title: "MyFirstMarkdownFile"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+    theme: journal
+    highlight: tango
+---
+````
+
+:::: {.summarybox data-latex=""}
+:::: {.summarybox-title }
+<font size="5"> 
+<i class="fas fa-exclamation-circle"></i> **Summary**
+</font> 
+::::
+
+* R Markdown documents are a powerful way of sharing your research analysis and results. 
+
+::::
+
+
+# Further resources
+***
+This [cheatsheet](https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf?_ga=2.130692559.1531018005.1610984746-1259499429.1600070494) is a great resource to have at hand when you get started. 
+
+[Here](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) you find details on many more options to stylize your reports than we have discussed here. 
+
+Lastly, check out the ['Definite Guide to R Markdown'](https://bookdown.org/yihui/rmarkdown/). 
